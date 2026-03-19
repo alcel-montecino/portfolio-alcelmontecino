@@ -4,439 +4,490 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Alcel Montecino — Organizational Web Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
 /* ── Reset ───────────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;font-size:16px;}
 
 /* ── Tokens ──────────────────────────────────────────────── */
 :root{
-  --ivory:    #faf7f2;
-  --cream:    #f3ede3;
-  --warm:     #ede4d4;
-  --ink:      #1c1710;
-  --ink2:     #3d3628;
-  --muted:    #9e9180;
-  --rule:     #ddd4c0;
+  --ivory:    #faf8f3;
+  --cream:    #f2ebe0;
+  --warm:     #e8dfd0;
+  --ink:      #18130e;
+  --ink2:     #3a3228;
+  --muted:    #9a8f80;
+  --rule:     #dbd0bc;
   --teal:     #0a6e72;
   --teal2:    #0d8a8f;
-  --teal3:    #0f9ea4;
   --teal-bg:  #eef8f8;
   --navy:     #0f2240;
   --gold:     #b8922a;
-  --gold-lt:  #f5edd8;
 
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans:  'Lato', sans-serif;
-  --mono:  'DM Mono', monospace;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans:  'Plus Jakarta Sans', sans-serif;
+  --mono:  'JetBrains Mono', monospace;
 }
 
 body{
-  background: var(--ivory);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-weight: 300;
-  line-height: 1.65;
-  overflow-x: hidden;
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:400;
+  line-height:1.65;
+  overflow-x:hidden;
 }
 
-/* Subtle paper grain */
+/* Paper grain */
 body::after{
-  content:'';
-  position:fixed;inset:0;pointer-events:none;z-index:9999;
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity:0.028;
+  opacity:.025;
 }
 
-/* ── Nav ─────────────────────────────────────────────────── */
+/* ── NAV ─────────────────────────────────────────────────── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
+  position:fixed;top:0;left:0;right:0;z-index:500;
   display:flex;align-items:center;justify-content:space-between;
-  padding:1.2rem 4rem;
-  background:rgba(250,247,242,0.92);
-  backdrop-filter:blur(14px);
+  padding:1.1rem 4rem;
+  background:rgba(250,248,243,.93);
+  backdrop-filter:blur(16px);
   border-bottom:1px solid var(--rule);
   transition:padding .3s;
 }
 .nav-logo{
-  font-family:var(--serif);
-  font-size:1.15rem;font-weight:700;
+  font-family:var(--serif);font-size:1.15rem;font-weight:700;
   color:var(--navy);text-decoration:none;
-  display:flex;align-items:center;gap:.5rem;
+  display:flex;align-items:center;gap:.45rem;
+  flex-shrink:0;
 }
-.nav-logo-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--teal);display:inline-block;
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);}
+
+.nav-links{
+  list-style:none;display:flex;align-items:center;gap:2rem;
 }
-nav ul{list-style:none;display:flex;align-items:center;gap:2.2rem;}
-nav ul a{
+.nav-links a{
   color:var(--ink2);text-decoration:none;
-  font-size:.83rem;letter-spacing:.06em;text-transform:uppercase;
+  font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
   transition:color .2s;
 }
-nav ul a:hover{color:var(--teal);}
+.nav-links a:hover{color:var(--teal);}
 .nav-hire{
-  color:var(--ivory) !important;
-  background:var(--teal);
-  padding:.42rem 1.1rem;border-radius:3px;
-  font-weight:700 !important;
+  background:var(--teal);color:var(--ivory) !important;
+  padding:.4rem 1.05rem;border-radius:4px;font-weight:600 !important;
   transition:background .2s !important;
 }
 .nav-hire:hover{background:var(--teal2) !important;}
 
-/* ── Hero ────────────────────────────────────────────────── */
+/* Hamburger */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:.4rem;
+}
+.hamburger span{
+  display:block;width:24px;height:2px;
+  background:var(--navy);border-radius:2px;
+  transition:transform .3s, opacity .3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* Mobile menu */
+.mobile-menu{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:400;
+  background:var(--ivory);
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:2rem;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s;
+}
+.mobile-menu.open{opacity:1;pointer-events:all;}
+.mobile-menu a{
+  font-family:var(--serif);font-size:1.8rem;font-weight:600;
+  color:var(--navy);text-decoration:none;
+  transition:color .2s;
+}
+.mobile-menu a:hover{color:var(--teal);}
+.mobile-menu .m-hire{
+  background:var(--teal);color:var(--ivory) !important;
+  padding:.6rem 2rem;border-radius:4px;font-size:1rem !important;
+  font-family:var(--sans) !important;font-weight:600 !important;
+}
+
+/* ── HERO ────────────────────────────────────────────────── */
 .hero{
   min-height:100vh;
   display:grid;grid-template-columns:1fr 1fr;
-  align-items:center;
-  padding:0 4rem;
-  gap:4rem;
-  position:relative;
-  overflow:hidden;
+  align-items:center;padding:0 4rem;gap:4rem;
+  position:relative;overflow:hidden;
+  padding-top:80px;
 }
-
-/* Warm background gradient */
 .hero::before{
-  content:'';
-  position:absolute;inset:0;
-  background: radial-gradient(ellipse 60% 80% at 100% 50%, rgba(184,146,42,.08) 0%, transparent 60%),
-              radial-gradient(ellipse 40% 60% at 0% 80%, rgba(10,110,114,.06) 0%, transparent 55%);
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 55% 75% at 100% 50%,rgba(184,146,42,.07) 0%,transparent 60%),
+             radial-gradient(ellipse 40% 60% at 0% 80%,rgba(10,110,114,.05) 0%,transparent 55%);
   pointer-events:none;
 }
-
-/* Cross-rule decorative lines */
-.hero::after{
-  content:'';
-  position:absolute;top:0;left:50%;bottom:0;
-  width:1px;background:var(--rule);opacity:.5;
-  pointer-events:none;
-}
-
 .hero-left{position:relative;z-index:1;}
 
 .hero-kicker{
   display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--mono);font-size:.7rem;
+  font-family:var(--mono);font-size:.68rem;font-weight:400;
   color:var(--teal);letter-spacing:.12em;text-transform:uppercase;
-  margin-bottom:1.6rem;
+  margin-bottom:1.5rem;
   opacity:0;animation:fadeUp .5s .1s ease forwards;
 }
-.hero-kicker::before{content:'';width:24px;height:1px;background:var(--teal);}
+.hero-kicker::before{content:'';width:22px;height:1px;background:var(--teal);}
 
 .hero h1{
   font-family:var(--serif);
-  font-size:clamp(2.8rem,5.5vw,4.8rem);
-  font-weight:700;line-height:1.08;
-  letter-spacing:-.02em;
-  color:var(--navy);
-  margin-bottom:1.4rem;
+  font-size:clamp(2.6rem,5vw,4.6rem);
+  font-weight:600;line-height:1.08;letter-spacing:-.02em;
+  color:var(--navy);margin-bottom:1.3rem;
   opacity:0;animation:fadeUp .6s .2s ease forwards;
 }
-.hero h1 em{font-style:italic;color:var(--teal);}
+.hero h1 em{font-style:italic;color:var(--teal);font-weight:300;}
 
 .hero-desc{
-  font-size:.97rem;color:var(--ink2);
-  max-width:480px;line-height:1.78;
-  margin-bottom:2.2rem;
+  font-size:1rem;font-weight:400;color:var(--ink2);
+  max-width:480px;line-height:1.8;margin-bottom:2rem;
   opacity:0;animation:fadeUp .6s .3s ease forwards;
 }
 
 .hero-ctas{
-  display:flex;gap:1rem;flex-wrap:wrap;
+  display:flex;gap:.85rem;flex-wrap:wrap;
   opacity:0;animation:fadeUp .6s .4s ease forwards;
 }
 .btn-solid{
   background:var(--teal);color:var(--ivory);
-  padding:.75rem 1.8rem;text-decoration:none;
-  font-size:.85rem;font-weight:700;letter-spacing:.05em;
-  border-radius:3px;text-transform:uppercase;
+  padding:.75rem 1.7rem;text-decoration:none;
+  font-size:.84rem;font-weight:600;letter-spacing:.05em;
+  border-radius:4px;text-transform:uppercase;
   transition:background .2s,transform .2s;
-  box-shadow:0 4px 18px rgba(10,110,114,.25);
+  box-shadow:0 4px 16px rgba(10,110,114,.25);
 }
 .btn-solid:hover{background:var(--teal2);transform:translateY(-2px);}
 .btn-ghost{
-  color:var(--navy);padding:.75rem 1.8rem;text-decoration:none;
-  font-size:.85rem;font-weight:700;letter-spacing:.05em;
-  border:1.5px solid var(--rule);border-radius:3px;text-transform:uppercase;
+  color:var(--navy);padding:.75rem 1.7rem;text-decoration:none;
+  font-size:.84rem;font-weight:600;letter-spacing:.05em;
+  border:1.5px solid var(--rule);border-radius:4px;text-transform:uppercase;
   transition:border-color .2s,color .2s;
 }
 .btn-ghost:hover{border-color:var(--teal);color:var(--teal);}
 
-/* Hero right — capability cards */
+/* Hero right cards */
 .hero-right{
-  position:relative;z-index:1;
-  display:flex;flex-direction:column;gap:.75rem;
+  position:relative;z-index:1;display:flex;flex-direction:column;gap:.65rem;
   opacity:0;animation:fadeIn .8s .5s ease forwards;
 }
 .cap-card{
-  background:var(--ivory);
-  border:1px solid var(--rule);border-radius:6px;
-  padding:1rem 1.25rem;
-  display:flex;align-items:center;gap:1rem;
+  background:var(--ivory);border:1px solid var(--rule);border-radius:8px;
+  padding:.9rem 1.1rem;display:flex;align-items:center;gap:.9rem;
   transition:border-color .25s,transform .25s,box-shadow .25s;
 }
-.cap-card:hover{
-  border-color:var(--teal);
-  transform:translateX(5px);
-  box-shadow:0 4px 20px rgba(10,110,114,.1);
-}
+.cap-card:hover{border-color:var(--teal);transform:translateX(4px);box-shadow:0 4px 18px rgba(10,110,114,.09);}
 .cap-icon{
-  width:38px;height:38px;border-radius:6px;
-  background:var(--teal-bg);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;flex-shrink:0;
+  width:36px;height:36px;border-radius:6px;background:var(--teal-bg);
+  display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;
 }
-.cap-text-title{font-weight:700;font-size:.88rem;color:var(--navy);margin-bottom:.1rem;}
-.cap-text-sub{font-size:.78rem;color:var(--muted);}
+.cap-title{font-weight:600;font-size:.86rem;color:var(--navy);margin-bottom:.08rem;}
+.cap-sub{font-size:.75rem;color:var(--muted);font-weight:400;}
 .cap-check{
-  margin-left:auto;
-  width:18px;height:18px;border-radius:50%;
-  background:var(--teal);
-  display:flex;align-items:center;justify-content:center;
-  color:white;font-size:.65rem;flex-shrink:0;
+  margin-left:auto;width:17px;height:17px;border-radius:50%;
+  background:var(--teal);display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:.6rem;flex-shrink:0;
 }
 
-/* ── Sections ────────────────────────────────────────────── */
-section{padding:6.5rem 4rem;}
+/* ── SECTION BASE ────────────────────────────────────────── */
+section{padding:6rem 4rem;}
 .section-kicker{
-  font-family:var(--mono);font-size:.7rem;color:var(--teal);
+  font-family:var(--mono);font-size:.68rem;font-weight:400;color:var(--teal);
   letter-spacing:.14em;text-transform:uppercase;
-  display:flex;align-items:center;gap:.55rem;margin-bottom:.8rem;
+  display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;
 }
-.section-kicker::before{content:'';width:18px;height:1px;background:var(--teal);}
+.section-kicker::before{content:'';width:16px;height:1px;background:var(--teal);}
 h2{
   font-family:var(--serif);
-  font-size:clamp(1.9rem,3.5vw,2.9rem);
-  font-weight:700;letter-spacing:-.02em;line-height:1.12;
-  color:var(--navy);margin-bottom:.5rem;
-}
-h2 em{font-style:italic;color:var(--teal);}
-.sec-sub{color:var(--muted);font-size:.9rem;margin-bottom:3rem;max-width:500px;}
-.teal-rule{
-  height:2px;width:48px;background:var(--teal);
-  margin-bottom:2.5rem;border-radius:1px;
-}
-
-/* ── About ───────────────────────────────────────────────── */
-#about{background:var(--cream);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
-.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:center;}
-.about-text p{color:var(--ink2);font-size:.96rem;line-height:1.85;margin-bottom:1.1rem;}
-.about-text p:last-child{margin-bottom:0;}
-.about-text strong{color:var(--teal);font-weight:700;}
-
-.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden;}
-.astat{
-  background:var(--ivory);padding:1.5rem 1.25rem;
-  transition:background .2s;
-}
-.astat:hover{background:var(--teal-bg);}
-.astat-num{
-  font-family:var(--serif);font-size:2.2rem;font-weight:700;
-  color:var(--teal);line-height:1;margin-bottom:.3rem;
-}
-.astat-label{font-size:.8rem;color:var(--ink2);line-height:1.4;}
-
-/* ── What I Build ────────────────────────────────────────── */
-#capabilities{}
-.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
-.cap-full-card{
-  border:1px solid var(--rule);border-radius:6px;
-  background:var(--ivory);padding:2rem 1.75rem;
-  transition:border-color .3s,transform .3s,box-shadow .3s;
-}
-.cap-full-card:hover{
-  border-color:var(--teal);
-  transform:translateY(-4px);
-  box-shadow:0 12px 32px rgba(10,110,114,.09);
-}
-.cap-full-icon{
-  width:46px;height:46px;border-radius:8px;
-  background:var(--teal-bg);border:1px solid rgba(10,110,114,.15);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;margin-bottom:1rem;
-  transition:background .2s;
-}
-.cap-full-card:hover .cap-full-icon{background:rgba(10,110,114,.15);}
-.cap-full-title{
-  font-family:var(--serif);font-weight:700;font-size:1.05rem;
+  font-size:clamp(1.8rem,3.2vw,2.75rem);
+  font-weight:600;letter-spacing:-.02em;line-height:1.12;
   color:var(--navy);margin-bottom:.45rem;
 }
-.cap-full-desc{font-size:.85rem;color:var(--ink2);line-height:1.7;margin-bottom:.9rem;}
-.cap-tags{display:flex;flex-wrap:wrap;gap:.3rem;}
+h2 em{font-style:italic;color:var(--teal);font-weight:300;}
+.sec-sub{color:var(--muted);font-size:.9rem;font-weight:400;margin-bottom:2.75rem;max-width:500px;line-height:1.7;}
+.teal-rule{height:2px;width:42px;background:var(--teal);margin-bottom:2.2rem;border-radius:1px;}
+
+/* ── ABOUT ───────────────────────────────────────────────── */
+#about{background:var(--cream);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:center;}
+.about-text p{color:var(--ink2);font-size:.95rem;font-weight:400;line-height:1.85;margin-bottom:1.1rem;}
+.about-text p:last-child{margin-bottom:0;}
+.about-text strong{color:var(--teal);font-weight:600;}
+.about-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;
+}
+.astat{background:var(--ivory);padding:1.4rem 1.2rem;transition:background .2s;}
+.astat:hover{background:var(--teal-bg);}
+.astat-num{
+  font-family:var(--serif);font-size:2rem;font-weight:700;
+  color:var(--teal);line-height:1;margin-bottom:.3rem;
+}
+.astat-label{font-size:.78rem;color:var(--ink2);font-weight:400;line-height:1.45;}
+
+/* ── CAPABILITIES ────────────────────────────────────────── */
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.cap-full-card{
+  border:1px solid var(--rule);border-radius:8px;
+  background:var(--ivory);padding:1.75rem 1.5rem;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+}
+.cap-full-card:hover{border-color:var(--teal);transform:translateY(-3px);box-shadow:0 10px 28px rgba(10,110,114,.08);}
+.cap-full-icon{
+  width:44px;height:44px;border-radius:8px;
+  background:var(--teal-bg);border:1px solid rgba(10,110,114,.14);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;margin-bottom:.9rem;transition:background .2s;
+}
+.cap-full-card:hover .cap-full-icon{background:rgba(10,110,114,.14);}
+.cap-full-title{
+  font-family:var(--serif);font-weight:600;font-size:1rem;
+  color:var(--navy);margin-bottom:.4rem;
+}
+.cap-full-desc{font-size:.85rem;font-weight:400;color:var(--ink2);line-height:1.72;margin-bottom:.85rem;}
+.cap-tags{display:flex;flex-wrap:wrap;gap:.28rem;}
 .cap-tag{
-  font-family:var(--mono);font-size:.67rem;
+  font-family:var(--mono);font-size:.64rem;font-weight:400;
   color:var(--teal);background:var(--teal-bg);
-  border:1px solid rgba(10,110,114,.2);
-  border-radius:2px;padding:.15rem .5rem;
+  border:1px solid rgba(10,110,114,.18);border-radius:3px;padding:.13rem .48rem;
 }
 
-/* ── Tech Stack ──────────────────────────────────────────── */
+/* ── TECH STACK ──────────────────────────────────────────── */
 #stack{background:var(--cream);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
-.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden;}
-.stack-cell{
-  background:var(--ivory);padding:1.5rem;
-  transition:background .2s;
+.stack-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;overflow:hidden;
 }
+.stack-cell{background:var(--ivory);padding:1.4rem;transition:background .2s;}
 .stack-cell:hover{background:var(--teal-bg);}
 .stack-cell-label{
-  font-family:var(--mono);font-size:.66rem;color:var(--teal);
-  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem;
+  font-family:var(--mono);font-size:.63rem;font-weight:400;color:var(--teal);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.55rem;
 }
-.stack-tags{display:flex;flex-wrap:wrap;gap:.3rem;}
+.stack-tags{display:flex;flex-wrap:wrap;gap:.28rem;}
 .stack-tag{
-  font-size:.78rem;color:var(--ink2);
+  font-size:.77rem;font-weight:400;color:var(--ink2);
   background:var(--warm);border:1px solid var(--rule);
-  border-radius:2px;padding:.18rem .55rem;
+  border-radius:3px;padding:.16rem .52rem;
   transition:border-color .2s,color .2s;
 }
-.stack-cell:hover .stack-tag{border-color:rgba(10,110,114,.35);color:var(--teal);}
+.stack-cell:hover .stack-tag{border-color:rgba(10,110,114,.3);color:var(--teal);}
 
-/* ── Projects ────────────────────────────────────────────── */
-#projects{}
-.projects-list{display:flex;flex-direction:column;gap:0;}
+/* ── PROJECTS ────────────────────────────────────────────── */
+.projects-list{display:flex;flex-direction:column;}
 .project-item{
-  display:grid;grid-template-columns:280px 1fr;
-  border-bottom:1px solid var(--rule);
-  transition:background .2s;
+  display:grid;grid-template-columns:260px 1fr;
+  border-bottom:1px solid var(--rule);transition:background .2s;
 }
 .project-item:first-child{border-top:1px solid var(--rule);}
-.project-item:hover{background:rgba(10,110,114,.025);}
-.project-meta{
-  padding:2.2rem 2rem 2.2rem 0;
-  border-right:1px solid var(--rule);
-}
+.project-item:hover{background:rgba(10,110,114,.022);}
+.project-meta{padding:2rem 2rem 2rem 0;border-right:1px solid var(--rule);}
 .project-type{
-  font-family:var(--mono);font-size:.68rem;color:var(--gold);
+  font-family:var(--mono);font-size:.64rem;font-weight:400;color:var(--gold);
   letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;
 }
 .project-name{
-  font-family:var(--serif);font-size:1.25rem;font-weight:700;
-  color:var(--navy);line-height:1.2;margin-bottom:.4rem;
+  font-family:var(--serif);font-size:1.15rem;font-weight:600;
+  color:var(--navy);line-height:1.2;margin-bottom:.35rem;
 }
-.project-scope{font-size:.82rem;color:var(--muted);}
-.project-body{padding:2.2rem 0 2.2rem 2.5rem;}
-.project-desc{font-size:.9rem;color:var(--ink2);line-height:1.72;margin-bottom:1rem;}
-.project-bullets{list-style:none;display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem;}
+.project-scope{font-size:.8rem;font-weight:400;color:var(--muted);}
+.project-body{padding:2rem 0 2rem 2.25rem;}
+.project-desc{font-size:.88rem;font-weight:400;color:var(--ink2);line-height:1.75;margin-bottom:.9rem;}
+.project-bullets{list-style:none;display:flex;flex-direction:column;gap:.32rem;margin-bottom:.9rem;}
 .project-bullets li{
-  font-size:.85rem;color:var(--ink2);line-height:1.6;
-  padding-left:1rem;position:relative;
+  font-size:.84rem;font-weight:400;color:var(--ink2);line-height:1.62;
+  padding-left:.95rem;position:relative;
 }
-.project-bullets li::before{content:'—';position:absolute;left:0;color:var(--teal);font-size:.75rem;top:.1rem;}
-.project-bullets strong{color:var(--teal);font-weight:700;}
-.project-tech{display:flex;flex-wrap:wrap;gap:.3rem;}
+.project-bullets li::before{content:'—';position:absolute;left:0;color:var(--teal);font-size:.72rem;top:.1rem;}
+.project-bullets strong{color:var(--teal);font-weight:600;}
+.project-tech{display:flex;flex-wrap:wrap;gap:.28rem;}
 .project-tech span{
-  font-family:var(--mono);font-size:.68rem;
+  font-family:var(--mono);font-size:.65rem;font-weight:400;
   color:var(--teal2);background:var(--teal-bg);
-  border:1px solid rgba(10,110,114,.2);
-  border-radius:2px;padding:.15rem .5rem;
+  border:1px solid rgba(10,110,114,.18);border-radius:3px;padding:.13rem .48rem;
 }
 
-/* ── Timeline ────────────────────────────────────────────── */
+/* ── TIMELINE ────────────────────────────────────────────── */
 #timeline{background:var(--cream);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
-.timeline-wrap{display:grid;grid-template-columns:1fr 3fr;gap:4rem;align-items:start;}
-.timeline-intro p{color:var(--ink2);font-size:.93rem;line-height:1.8;margin-top:.75rem;}
-.timeline-steps{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--rule);padding-left:2rem;}
-.tstep{
-  position:relative;padding:1.5rem 0 1.5rem 0;
-  border-bottom:1px solid var(--rule);
-}
-.tstep:last-child{border-bottom:none;}
+.timeline-wrap{display:grid;grid-template-columns:1fr 2.8fr;gap:4rem;align-items:start;}
+.timeline-intro p{color:var(--ink2);font-size:.92rem;font-weight:400;line-height:1.8;margin-top:.7rem;}
+.timeline-steps{display:flex;flex-direction:column;border-left:2px solid var(--rule);padding-left:2rem;}
+.tstep{position:relative;padding:1.35rem 0;border-bottom:1px solid var(--rule);}
+.tstep:last-child{border-bottom:none;padding-bottom:0;}
 .tstep::before{
-  content:'';
-  position:absolute;left:-2.45rem;top:1.85rem;
-  width:14px;height:14px;border-radius:50%;
-  background:var(--ivory);border:2px solid var(--teal);
-  transition:background .2s;
+  content:'';position:absolute;left:-2.42rem;top:1.72rem;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--ivory);border:2px solid var(--teal);transition:background .2s;
 }
 .tstep:hover::before{background:var(--teal);}
 .tstep-week{
-  font-family:var(--mono);font-size:.68rem;color:var(--teal);
-  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;
+  font-family:var(--mono);font-size:.65rem;font-weight:400;color:var(--teal);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.28rem;
 }
 .tstep-title{
-  font-family:var(--serif);font-weight:700;font-size:1rem;
-  color:var(--navy);margin-bottom:.3rem;
+  font-family:var(--serif);font-weight:600;font-size:.97rem;
+  color:var(--navy);margin-bottom:.28rem;
 }
-.tstep-desc{font-size:.85rem;color:var(--ink2);line-height:1.65;}
+.tstep-desc{font-size:.83rem;font-weight:400;color:var(--ink2);line-height:1.65;}
 
-/* ── Contact ─────────────────────────────────────────────── */
-#contact{}
+/* ── CONTACT ─────────────────────────────────────────────── */
 .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start;}
-.contact-left p{color:var(--ink2);font-size:.93rem;line-height:1.8;margin-bottom:1.4rem;margin-top:.5rem;}
+.contact-left p{color:var(--ink2);font-size:.93rem;font-weight:400;line-height:1.8;margin-bottom:1.3rem;margin-top:.5rem;}
 .contact-detail{
-  display:flex;align-items:center;gap:.7rem;
-  font-size:.87rem;color:var(--ink2);
-  text-decoration:none;margin-bottom:.55rem;
-  transition:color .2s;
+  display:flex;align-items:center;gap:.65rem;
+  font-size:.86rem;font-weight:400;color:var(--ink2);
+  text-decoration:none;margin-bottom:.55rem;transition:color .2s;
 }
 .contact-detail:hover{color:var(--teal);}
-.contact-icon{color:var(--teal);width:16px;font-style:normal;}
-
-.form{display:flex;flex-direction:column;gap:.85rem;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;}
+.ci{color:var(--teal);width:16px;font-style:normal;}
+.form{display:flex;flex-direction:column;gap:.8rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
 .field label{
-  display:block;font-family:var(--mono);font-size:.67rem;
-  color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.38rem;
+  display:block;font-family:var(--mono);font-size:.64rem;font-weight:400;
+  color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;
 }
 .field input,.field select,.field textarea{
-  width:100%;background:var(--cream);
-  border:1px solid var(--rule);border-radius:3px;
-  padding:.72rem 1rem;font-family:var(--sans);
-  font-size:.9rem;font-weight:300;color:var(--ink);
-  outline:none;transition:border-color .2s;resize:vertical;
+  width:100%;background:var(--cream);border:1px solid var(--rule);border-radius:4px;
+  padding:.7rem .95rem;font-family:var(--sans);font-size:.88rem;font-weight:400;
+  color:var(--ink);outline:none;transition:border-color .2s;resize:vertical;
 }
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--teal);}
 .field select option{background:var(--ivory);}
 .field input::placeholder,.field textarea::placeholder{color:var(--muted);}
 .btn-submit{
   background:var(--teal);color:var(--ivory);border:none;
-  padding:.82rem 2rem;border-radius:3px;
-  font-family:var(--sans);font-size:.88rem;
-  font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  padding:.8rem 2rem;border-radius:4px;
+  font-family:var(--sans);font-size:.86rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
   cursor:pointer;transition:background .2s,transform .2s;width:100%;
-  box-shadow:0 4px 16px rgba(10,110,114,.28);
+  box-shadow:0 4px 14px rgba(10,110,114,.27);
 }
 .btn-submit:hover{background:var(--teal2);transform:translateY(-1px);}
 
-/* ── Footer ──────────────────────────────────────────────── */
+/* ── FOOTER ──────────────────────────────────────────────── */
 footer{
-  padding:2.5rem 4rem;
-  border-top:1px solid var(--rule);background:var(--cream);
-  display:flex;justify-content:space-between;align-items:center;
+  padding:2.25rem 4rem;border-top:1px solid var(--rule);background:var(--cream);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
 }
 .footer-logo{
-  font-family:var(--serif);font-size:1.05rem;
-  font-weight:700;color:var(--navy);text-decoration:none;
+  font-family:var(--serif);font-size:1.05rem;font-weight:700;
+  color:var(--navy);text-decoration:none;
 }
 .footer-logo span{color:var(--teal);}
-.footer-links{display:flex;gap:1.5rem;}
-.footer-links a{color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .2s;}
+.footer-links{display:flex;gap:1.25rem;flex-wrap:wrap;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:.78rem;font-weight:400;transition:color .2s;}
 .footer-links a:hover{color:var(--teal);}
-.footer-copy{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.05em;}
+.footer-copy{font-family:var(--mono);font-size:.65rem;font-weight:400;color:var(--muted);letter-spacing:.05em;}
 
-/* ── Scroll reveal ───────────────────────────────────────── */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+/* ── REVEAL ──────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
-/* ── Animations ──────────────────────────────────────────── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+/* ── ANIMATIONS ──────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
-/* ── Responsive ──────────────────────────────────────────── */
-@media(max-width:1020px){
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE — complete mobile-first breakpoints
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Tablet landscape: ≤1100px ───────────────────────────── */
+@media(max-width:1100px){
+  nav{padding:1rem 2.5rem;}
+  section{padding:5rem 2.5rem;}
+  .hero{padding:80px 2.5rem 4rem;gap:2.5rem;}
+  .cap-grid{grid-template-columns:repeat(2,1fr);}
+  .stack-grid{grid-template-columns:repeat(2,1fr);}
+  .timeline-wrap{grid-template-columns:1fr 2.2fr;gap:2.5rem;}
+}
+
+/* ── Tablet portrait: ≤860px ─────────────────────────────── */
+@media(max-width:860px){
+  /* Nav — hide links, show hamburger */
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .mobile-menu{display:flex;}
+
   nav{padding:1rem 1.5rem;}
-  section,.hero{padding-left:1.5rem;padding-right:1.5rem;}
-  .hero{grid-template-columns:1fr;min-height:auto;padding-top:7rem;padding-bottom:4rem;}
+  section{padding:4.5rem 1.5rem;}
+
+  /* Hero — stack vertically */
+  .hero{
+    grid-template-columns:1fr;
+    min-height:auto;
+    padding:100px 1.5rem 4rem;
+    gap:2.5rem;
+  }
   .hero::after{display:none;}
-  .about-grid,.contact-grid,.timeline-wrap{grid-template-columns:1fr;gap:3rem;}
-  .cap-grid{grid-template-columns:1fr 1fr;}
-  .stack-grid{grid-template-columns:1fr 1fr;}
+  .hero h1{font-size:clamp(2.2rem,8vw,3.4rem);}
+  .hero-desc{max-width:100%;}
+
+  /* About */
+  .about-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .about-stats{grid-template-columns:repeat(2,1fr);}
+
+  /* Projects */
   .project-item{grid-template-columns:1fr;}
   .project-meta{border-right:none;border-bottom:1px solid var(--rule);padding:1.5rem 0;}
   .project-body{padding:1.5rem 0;}
-  .about-stats{grid-template-columns:repeat(4,1fr);}
-  footer{flex-direction:column;gap:1rem;text-align:center;}
+
+  /* Contact */
+  .contact-grid{grid-template-columns:1fr;gap:2.5rem;}
+
+  /* Timeline */
+  .timeline-wrap{grid-template-columns:1fr;gap:2rem;}
+
+  /* Footer */
+  footer{flex-direction:column;text-align:center;padding:2rem 1.5rem;}
+  .footer-links{justify-content:center;}
+}
+
+/* ── Mobile: ≤580px ──────────────────────────────────────── */
+@media(max-width:580px){
+  section{padding:4rem 1.1rem;}
+  .hero{padding:90px 1.1rem 3.5rem;}
+  .hero h1{font-size:clamp(2rem,9vw,3rem);}
+  .hero-ctas{flex-direction:column;}
+  .btn-solid,.btn-ghost{text-align:center;width:100%;}
+
+  /* Caps: 1 column */
+  .cap-grid{grid-template-columns:1fr;}
+  .stack-grid{grid-template-columns:1fr;}
+
+  /* Stats: 2 across */
+  .about-stats{grid-template-columns:1fr 1fr;}
+
+  /* Form */
+  .form-row{grid-template-columns:1fr;}
+
+  /* Nav compact */
+  nav{padding:.85rem 1.1rem;}
+
+  /* Footer */
+  footer{padding:1.75rem 1.1rem;gap:.75rem;}
+  .footer-links{gap:.85rem;}
+
+  /* Timeline — tighter */
+  .timeline-steps{padding-left:1.25rem;}
+  .tstep::before{left:-1.67rem;}
+}
+
+/* ── Very small: ≤380px ──────────────────────────────────── */
+@media(max-width:380px){
+  .hero h1{font-size:1.9rem;}
+  h2{font-size:1.65rem;}
+  .about-stats{grid-template-columns:1fr;}
+  .cap-card{flex-wrap:wrap;}
 }
 </style>
 </head>
@@ -444,8 +495,8 @@ footer{
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-logo"><span class="nav-logo-dot"></span> Alcel Montecino</a>
-  <ul>
+  <a href="#" class="nav-logo"><span class="nav-dot"></span> Alcel Montecino</a>
+  <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#capabilities">Services</a></li>
     <li><a href="#projects">Projects</a></li>
@@ -453,7 +504,20 @@ footer{
     <li><a href="#timeline">Timeline</a></li>
     <li><a href="#contact" class="nav-hire">Hire Me</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="m-link">About</a>
+  <a href="#capabilities" class="m-link">Services</a>
+  <a href="#projects" class="m-link">Projects</a>
+  <a href="#stack" class="m-link">Tech Stack</a>
+  <a href="#timeline" class="m-link">Timeline</a>
+  <a href="#contact" class="m-hire">Hire Me</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -462,7 +526,7 @@ footer{
     <h1>Modern websites for<br>organizations that <em>matter</em></h1>
     <p class="hero-desc">
       I build scalable, feature-rich websites for churches, nonprofits, and membership organizations —
-      with CMS, events, secure giving, member portals, and seamless third-party integrations.
+      CMS, events, secure giving, member portals, and third-party integrations.
       Fully remote. Ongoing support included.
     </p>
     <div class="hero-ctas">
@@ -470,56 +534,13 @@ footer{
       <a href="#contact" class="btn-ghost">Start Your Project</a>
     </div>
   </div>
-
   <div class="hero-right">
-    <div class="cap-card">
-      <div class="cap-icon">📝</div>
-      <div>
-        <div class="cap-text-title">Blog & Content Management</div>
-        <div class="cap-text-sub">WordPress CMS · Custom post types · Media library</div>
-      </div>
-      <div class="cap-check">✓</div>
-    </div>
-    <div class="cap-card">
-      <div class="cap-icon">📅</div>
-      <div>
-        <div class="cap-text-title">Events Calendar & Registration</div>
-        <div class="cap-text-sub">Recurring events · Online sign-up · Media capabilities</div>
-      </div>
-      <div class="cap-check">✓</div>
-    </div>
-    <div class="cap-card">
-      <div class="cap-icon">🔒</div>
-      <div>
-        <div class="cap-text-title">Secure Online Giving</div>
-        <div class="cap-text-sub">Stripe · PayPal · Pushpay · Recurring donations</div>
-      </div>
-      <div class="cap-check">✓</div>
-    </div>
-    <div class="cap-card">
-      <div class="cap-icon">👤</div>
-      <div>
-        <div class="cap-text-title">Member Login & Portals</div>
-        <div class="cap-text-sub">Role-based access · Dashboards · Private content</div>
-      </div>
-      <div class="cap-check">✓</div>
-    </div>
-    <div class="cap-card">
-      <div class="cap-icon">📱</div>
-      <div>
-        <div class="cap-text-title">Mobile Responsive Design</div>
-        <div class="cap-text-sub">All devices · Fast load · Accessibility-ready</div>
-      </div>
-      <div class="cap-check">✓</div>
-    </div>
-    <div class="cap-card">
-      <div class="cap-icon">🔧</div>
-      <div>
-        <div class="cap-text-title">Ongoing Maintenance & Support</div>
-        <div class="cap-text-sub">Updates · Security · Backups · Long-term partnership</div>
-      </div>
-      <div class="cap-check">✓</div>
-    </div>
+    <div class="cap-card"><div class="cap-icon">📝</div><div><div class="cap-title">Blog & Content Management</div><div class="cap-sub">WordPress CMS · Custom post types · Media library</div></div><div class="cap-check">✓</div></div>
+    <div class="cap-card"><div class="cap-icon">📅</div><div><div class="cap-title">Events Calendar & Registration</div><div class="cap-sub">Recurring events · Online sign-up · Media support</div></div><div class="cap-check">✓</div></div>
+    <div class="cap-card"><div class="cap-icon">🔒</div><div><div class="cap-title">Secure Online Giving</div><div class="cap-sub">Stripe · PayPal · Pushpay · Recurring donations</div></div><div class="cap-check">✓</div></div>
+    <div class="cap-card"><div class="cap-icon">👤</div><div><div class="cap-title">Member Login & Portals</div><div class="cap-sub">Role-based access · Dashboards · Private content</div></div><div class="cap-check">✓</div></div>
+    <div class="cap-card"><div class="cap-icon">📱</div><div><div class="cap-title">Mobile Responsive Design</div><div class="cap-sub">All devices · Fast load · Accessibility-ready</div></div><div class="cap-check">✓</div></div>
+    <div class="cap-card"><div class="cap-icon">🔧</div><div><div class="cap-title">Ongoing Maintenance & Support</div><div class="cap-sub">Updates · Security · Backups · Long-term partnership</div></div><div class="cap-check">✓</div></div>
   </div>
 </section>
 
@@ -530,38 +551,15 @@ footer{
       <div class="section-kicker">About</div>
       <h2>Trusted developer for<br><em>serious organizations</em></h2>
       <div class="teal-rule"></div>
-      <p>
-        I'm Alcel Montecino — a senior PHP developer from Davao City, Philippines, with
-        <strong>8+ years building and maintaining scalable web platforms</strong> for organizations
-        that serve large, active communities. I've worked on platforms handling hundreds of institutions
-        and thousands of daily users, integrating payments, member systems, events, and third-party tools.
-      </p>
-      <p>
-        I understand what organizations like yours need: a website that's <strong>reliable, easy to manage,
-        and built to grow</strong>. I don't just build and disappear — I provide long-term support,
-        regular updates, and a genuine partnership to keep your digital presence strong.
-      </p>
-      <p>
-        Available remotely worldwide for full project builds and ongoing maintenance contracts.
-      </p>
+      <p>I'm Alcel Montecino — a senior PHP developer from Davao City, Philippines, with <strong>8+ years building and maintaining scalable web platforms</strong> for organizations that serve large, active communities. I've worked on platforms handling hundreds of institutions and thousands of daily users, integrating payments, member systems, events, and third-party tools.</p>
+      <p>I understand what organizations like yours need: a website that's <strong>reliable, easy to manage, and built to grow</strong>. I don't just build and disappear — I provide long-term support, regular updates, and a genuine partnership.</p>
+      <p>Available remotely worldwide for full project builds and ongoing maintenance contracts.</p>
     </div>
     <div class="about-stats reveal">
-      <div class="astat">
-        <div class="astat-num">8+</div>
-        <div class="astat-label">Years building scalable web platforms</div>
-      </div>
-      <div class="astat">
-        <div class="astat-num">100s</div>
-        <div class="astat-label">Institutions served on platforms I maintained</div>
-      </div>
-      <div class="astat">
-        <div class="astat-num">~40%</div>
-        <div class="astat-label">Performance improvement via backend optimization</div>
-      </div>
-      <div class="astat">
-        <div class="astat-num">∞</div>
-        <div class="astat-label">Long-term maintenance & support availability</div>
-      </div>
+      <div class="astat"><div class="astat-num">8+</div><div class="astat-label">Years building scalable web platforms</div></div>
+      <div class="astat"><div class="astat-num">100s</div><div class="astat-label">Institutions served on platforms I maintained</div></div>
+      <div class="astat"><div class="astat-num">~40%</div><div class="astat-label">Performance improvement via backend optimization</div></div>
+      <div class="astat"><div class="astat-num">∞</div><div class="astat-label">Long-term maintenance & support availability</div></div>
     </div>
   </div>
 </section>
@@ -578,69 +576,37 @@ footer{
       <div class="cap-full-icon">📝</div>
       <div class="cap-full-title">Blog & Content Management</div>
       <p class="cap-full-desc">WordPress CMS with custom post types, categories, media library, and a simple editor your staff can use without technical help. Sermons, announcements, articles — all manageable from one dashboard.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">WordPress</span>
-        <span class="cap-tag">Custom Post Types</span>
-        <span class="cap-tag">Media Library</span>
-        <span class="cap-tag">WYSIWYG Editor</span>
-      </div>
+      <div class="cap-tags"><span class="cap-tag">WordPress</span><span class="cap-tag">Custom Post Types</span><span class="cap-tag">Media Library</span><span class="cap-tag">WYSIWYG Editor</span></div>
     </div>
     <div class="cap-full-card">
       <div class="cap-full-icon">📅</div>
       <div class="cap-full-title">Events Calendar & Media</div>
-      <p class="cap-full-desc">Full-featured events system with recurring events, online registration, filtering by category, media attachments, and automatic reminders. Powered by The Events Calendar Pro or custom PHP logic.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">Events Calendar Pro</span>
-        <span class="cap-tag">Registration Forms</span>
-        <span class="cap-tag">Recurring Events</span>
-        <span class="cap-tag">Email Reminders</span>
-      </div>
+      <p class="cap-full-desc">Full-featured events system with recurring events, online registration, filtering, media attachments, and automatic reminders. Powered by The Events Calendar Pro or custom PHP logic.</p>
+      <div class="cap-tags"><span class="cap-tag">Events Calendar Pro</span><span class="cap-tag">Registration</span><span class="cap-tag">Recurring Events</span><span class="cap-tag">Email Reminders</span></div>
     </div>
     <div class="cap-full-card">
       <div class="cap-full-icon">💳</div>
       <div class="cap-full-title">Secure Online Giving</div>
       <p class="cap-full-desc">PCI-compliant payment integration with Stripe, PayPal, or Pushpay. Supports one-time and recurring donations, donor dashboards, fund designation, and giving reports for administrators.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">Stripe</span>
-        <span class="cap-tag">PayPal</span>
-        <span class="cap-tag">Pushpay</span>
-        <span class="cap-tag">Recurring Giving</span>
-        <span class="cap-tag">SSL Encrypted</span>
-      </div>
+      <div class="cap-tags"><span class="cap-tag">Stripe</span><span class="cap-tag">PayPal</span><span class="cap-tag">Pushpay</span><span class="cap-tag">Recurring Giving</span><span class="cap-tag">SSL Encrypted</span></div>
     </div>
     <div class="cap-full-card">
       <div class="cap-full-icon">👤</div>
       <div class="cap-full-title">Member Login Portal</div>
-      <p class="cap-full-desc">Secure authentication system with role-based access control. Members get personalized dashboards, access to private content, event history, and giving records. Admins get full management tools.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">MemberPress</span>
-        <span class="cap-tag">Role-Based Access</span>
-        <span class="cap-tag">Member Dashboard</span>
-        <span class="cap-tag">Private Content</span>
-      </div>
+      <p class="cap-full-desc">Secure authentication with role-based access control. Members get personalized dashboards, private content, event history, and giving records. Admins get full management tools.</p>
+      <div class="cap-tags"><span class="cap-tag">MemberPress</span><span class="cap-tag">Role-Based Access</span><span class="cap-tag">Member Dashboard</span><span class="cap-tag">Private Content</span></div>
     </div>
     <div class="cap-full-card">
       <div class="cap-full-icon">🔗</div>
       <div class="cap-full-title">Platform Integrations</div>
-      <p class="cap-full-desc">Connects your website to the tools you already use — Mailchimp for email, Planning Center or Church Community Builder for management, YouTube/Vimeo for streaming, and social media feeds.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">Mailchimp</span>
-        <span class="cap-tag">Planning Center</span>
-        <span class="cap-tag">YouTube/Vimeo</span>
-        <span class="cap-tag">REST APIs</span>
-        <span class="cap-tag">Webhooks</span>
-      </div>
+      <p class="cap-full-desc">Connects your website to the tools you already use — Mailchimp, Planning Center, YouTube/Vimeo for streaming, and social media feeds.</p>
+      <div class="cap-tags"><span class="cap-tag">Mailchimp</span><span class="cap-tag">Planning Center</span><span class="cap-tag">YouTube/Vimeo</span><span class="cap-tag">REST APIs</span><span class="cap-tag">Webhooks</span></div>
     </div>
     <div class="cap-full-card">
       <div class="cap-full-icon">🛡️</div>
       <div class="cap-full-title">Maintenance & Support</div>
-      <p class="cap-full-desc">Ongoing partnership — not a one-time build. Regular WordPress/plugin updates, security monitoring, performance checks, daily backups, and a dedicated point of contact for your team whenever you need help.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">Security Monitoring</span>
-        <span class="cap-tag">Daily Backups</span>
-        <span class="cap-tag">Performance Audits</span>
-        <span class="cap-tag">Priority Support</span>
-      </div>
+      <p class="cap-full-desc">Ongoing partnership — not a one-time build. Regular updates, security monitoring, performance checks, daily backups, and a dedicated point of contact for your team.</p>
+      <div class="cap-tags"><span class="cap-tag">Security Monitoring</span><span class="cap-tag">Daily Backups</span><span class="cap-tag">Performance Audits</span><span class="cap-tag">Priority Support</span></div>
     </div>
   </div>
 </section>
@@ -653,85 +619,14 @@ footer{
     <p class="sec-sub">Proven, modern technologies — chosen for reliability, scalability, and ease of management.</p>
   </div>
   <div class="stack-grid reveal">
-    <div class="stack-cell">
-      <div class="stack-cell-label">CMS & Core</div>
-      <div class="stack-tags">
-        <span class="stack-tag">WordPress</span>
-        <span class="stack-tag">PHP 8.x</span>
-        <span class="stack-tag">Custom Themes</span>
-        <span class="stack-tag">Custom Plugins</span>
-        <span class="stack-tag">Laravel (API)</span>
-      </div>
-    </div>
-    <div class="stack-cell">
-      <div class="stack-cell-label">Frontend</div>
-      <div class="stack-tags">
-        <span class="stack-tag">HTML5</span>
-        <span class="stack-tag">CSS3</span>
-        <span class="stack-tag">Bootstrap 5</span>
-        <span class="stack-tag">JavaScript ES6+</span>
-        <span class="stack-tag">jQuery</span>
-      </div>
-    </div>
-    <div class="stack-cell">
-      <div class="stack-cell-label">Giving & Members</div>
-      <div class="stack-tags">
-        <span class="stack-tag">Stripe</span>
-        <span class="stack-tag">PayPal</span>
-        <span class="stack-tag">Pushpay</span>
-        <span class="stack-tag">MemberPress</span>
-        <span class="stack-tag">Events Calendar Pro</span>
-      </div>
-    </div>
-    <div class="stack-cell">
-      <div class="stack-cell-label">Database</div>
-      <div class="stack-tags">
-        <span class="stack-tag">MySQL</span>
-        <span class="stack-tag">MariaDB</span>
-        <span class="stack-tag">Query Optimization</span>
-        <span class="stack-tag">Indexing</span>
-      </div>
-    </div>
-    <div class="stack-cell">
-      <div class="stack-cell-label">DevOps & Hosting</div>
-      <div class="stack-tags">
-        <span class="stack-tag">AWS EC2/S3</span>
-        <span class="stack-tag">Docker</span>
-        <span class="stack-tag">Linux/Bash</span>
-        <span class="stack-tag">CI/CD</span>
-        <span class="stack-tag">Daily Backups</span>
-      </div>
-    </div>
-    <div class="stack-cell">
-      <div class="stack-cell-label">Integrations</div>
-      <div class="stack-tags">
-        <span class="stack-tag">Mailchimp</span>
-        <span class="stack-tag">Planning Center</span>
-        <span class="stack-tag">YouTube/Vimeo</span>
-        <span class="stack-tag">REST APIs</span>
-        <span class="stack-tag">Webhooks</span>
-      </div>
-    </div>
-    <div class="stack-cell">
-      <div class="stack-cell-label">Security</div>
-      <div class="stack-tags">
-        <span class="stack-tag">SSL/HTTPS</span>
-        <span class="stack-tag">OWASP Top 10</span>
-        <span class="stack-tag">Secure Auth</span>
-        <span class="stack-tag">Data Encryption</span>
-        <span class="stack-tag">Wordfence</span>
-      </div>
-    </div>
-    <div class="stack-cell">
-      <div class="stack-cell-label">Tools</div>
-      <div class="stack-tags">
-        <span class="stack-tag">Git</span>
-        <span class="stack-tag">Bitbucket</span>
-        <span class="stack-tag">JIRA</span>
-        <span class="stack-tag">Slack</span>
-        <span class="stack-tag">Loom (demos)</span>
-      </div>
-    </div>
+    <div class="stack-cell"><div class="stack-cell-label">CMS & Core</div><div class="stack-tags"><span class="stack-tag">WordPress</span><span class="stack-tag">PHP 8.x</span><span class="stack-tag">Custom Themes</span><span class="stack-tag">Custom Plugins</span><span class="stack-tag">Laravel (API)</span></div></div>
+    <div class="stack-cell"><div class="stack-cell-label">Frontend</div><div class="stack-tags"><span class="stack-tag">HTML5</span><span class="stack-tag">CSS3</span><span class="stack-tag">Bootstrap 5</span><span class="stack-tag">JavaScript ES6+</span><span class="stack-tag">jQuery</span></div></div>
+    <div class="stack-cell"><div class="stack-cell-label">Giving & Members</div><div class="stack-tags"><span class="stack-tag">Stripe</span><span class="stack-tag">PayPal</span><span class="stack-tag">Pushpay</span><span class="stack-tag">MemberPress</span><span class="stack-tag">Events Calendar Pro</span></div></div>
+    <div class="stack-cell"><div class="stack-cell-label">Database</div><div class="stack-tags"><span class="stack-tag">MySQL</span><span class="stack-tag">MariaDB</span><span class="stack-tag">Query Optimization</span><span class="stack-tag">Indexing</span></div></div>
+    <div class="stack-cell"><div class="stack-cell-label">DevOps & Hosting</div><div class="stack-tags"><span class="stack-tag">AWS EC2/S3</span><span class="stack-tag">Docker</span><span class="stack-tag">Linux/Bash</span><span class="stack-tag">CI/CD</span><span class="stack-tag">Daily Backups</span></div></div>
+    <div class="stack-cell"><div class="stack-cell-label">Integrations</div><div class="stack-tags"><span class="stack-tag">Mailchimp</span><span class="stack-tag">Planning Center</span><span class="stack-tag">YouTube/Vimeo</span><span class="stack-tag">REST APIs</span><span class="stack-tag">Webhooks</span></div></div>
+    <div class="stack-cell"><div class="stack-cell-label">Security</div><div class="stack-tags"><span class="stack-tag">SSL/HTTPS</span><span class="stack-tag">OWASP Top 10</span><span class="stack-tag">Secure Auth</span><span class="stack-tag">Wordfence</span><span class="stack-tag">Data Encryption</span></div></div>
+    <div class="stack-cell"><div class="stack-cell-label">Tools</div><div class="stack-tags"><span class="stack-tag">Git</span><span class="stack-tag">Bitbucket</span><span class="stack-tag">JIRA</span><span class="stack-tag">Slack</span><span class="stack-tag">Loom</span></div></div>
   </div>
 </section>
 
@@ -750,17 +645,14 @@ footer{
         <div class="project-scope">Mar 2017 – Dec 2023 · Remote</div>
       </div>
       <div class="project-body">
-        <p class="project-desc">Large-scale organizational SaaS platform serving hundreds of institutions and thousands of daily users — with content management, member/user portals, event and scheduling systems, and payment integrations.</p>
+        <p class="project-desc">Large-scale organizational SaaS serving hundreds of institutions and thousands of daily users — with content management, member portals, event systems, and payment integrations.</p>
         <ul class="project-bullets">
-          <li>Built and maintained <strong>member login and role-based access</strong> systems for institutional administrators, staff, and end users.</li>
-          <li>Integrated <strong>payment gateways, scheduling tools, and reporting APIs</strong> with secure, encrypted data handling.</li>
-          <li>Optimized backend and SQL performance — achieving <strong>~40% faster load times</strong> for a high-traffic organizational platform.</li>
-          <li>Led PHP upgrades and long-term maintenance, reducing system errors by <strong>~30%</strong> over the engagement.</li>
+          <li>Built and maintained <strong>member login and role-based access</strong> systems for administrators, staff, and end users.</li>
+          <li>Integrated <strong>payment gateways, scheduling tools, and reporting APIs</strong> with secure data handling.</li>
+          <li>Optimized backend and SQL performance — achieving <strong>~40% faster load times</strong>.</li>
+          <li>Led PHP upgrades and long-term maintenance, reducing system errors by <strong>~30%</strong>.</li>
         </ul>
-        <div class="project-tech">
-          <span>PHP / Laravel</span><span>WordPress</span><span>MySQL</span>
-          <span>Payment APIs</span><span>Member Portals</span><span>Events System</span><span>Git</span>
-        </div>
+        <div class="project-tech"><span>PHP / Laravel</span><span>WordPress</span><span>MySQL</span><span>Payment APIs</span><span>Member Portals</span><span>Events System</span><span>Git</span></div>
       </div>
     </div>
     <div class="project-item reveal">
@@ -770,16 +662,13 @@ footer{
         <div class="project-scope">Jan 2025 – Dec 2025 · Remote</div>
       </div>
       <div class="project-body">
-        <p class="project-desc">High-traffic web platform with real-time scheduling, event management, and user operations for national sports officiating across the United States.</p>
+        <p class="project-desc">High-traffic platform with real-time scheduling, event management, and user operations for national sports officiating across the U.S.</p>
         <ul class="project-bullets">
-          <li>Developed and maintained PHP/MySQL applications with <strong>event scheduling, user management, and real-time operations</strong> at scale.</li>
-          <li>Integrated third-party APIs and communication tools; enforced <strong>OWASP security practices</strong> throughout.</li>
-          <li>Built Linux/Bash automation reducing manual ops overhead — contributed to <strong>~20% reduction in critical production issues</strong>.</li>
+          <li>Developed PHP/MySQL applications with <strong>event scheduling, user management, and real-time ops</strong> at scale.</li>
+          <li>Integrated third-party APIs; enforced <strong>OWASP security practices</strong> throughout.</li>
+          <li>Built automation scripts — contributed to <strong>~20% reduction in critical production issues</strong>.</li>
         </ul>
-        <div class="project-tech">
-          <span>PHP 8.x</span><span>MySQL</span><span>REST APIs</span>
-          <span>Events System</span><span>Linux/Bash</span><span>OWASP Security</span>
-        </div>
+        <div class="project-tech"><span>PHP 8.x</span><span>MySQL</span><span>REST APIs</span><span>Events System</span><span>Linux/Bash</span><span>OWASP Security</span></div>
       </div>
     </div>
     <div class="project-item reveal">
@@ -789,16 +678,13 @@ footer{
         <div class="project-scope">Dec 2023 – Jan 2025 · Remote</div>
       </div>
       <div class="project-body">
-        <p class="project-desc">Scalable web platform with media capabilities, live streaming integrations, and high-concurrency responsive frontend — serving live event audiences nationwide.</p>
+        <p class="project-desc">Scalable web platform with media capabilities, live streaming integrations, and high-concurrency responsive frontend serving live event audiences.</p>
         <ul class="project-bullets">
-          <li>Built <strong>scalable PHP MVC backends</strong> and RESTful APIs for live media delivery and real-time user interaction.</li>
-          <li>Integrated multiple <strong>third-party streaming and analytics APIs</strong> to enhance platform capabilities.</li>
-          <li>Delivered <strong>mobile-responsive frontend</strong> and improved CI/CD pipelines for reliable releases.</li>
+          <li>Built <strong>scalable PHP MVC backends</strong> and RESTful APIs for live media and real-time interaction.</li>
+          <li>Integrated <strong>third-party streaming and analytics APIs</strong> to enhance platform capabilities.</li>
+          <li>Delivered <strong>mobile-responsive frontend</strong> and improved CI/CD pipelines.</li>
         </ul>
-        <div class="project-tech">
-          <span>PHP / MVC</span><span>REST APIs</span><span>Streaming Integrations</span>
-          <span>Bootstrap</span><span>CI/CD</span><span>MySQL</span>
-        </div>
+        <div class="project-tech"><span>PHP / MVC</span><span>REST APIs</span><span>Streaming Integrations</span><span>Bootstrap</span><span>CI/CD</span><span>MySQL</span></div>
       </div>
     </div>
   </div>
@@ -810,39 +696,15 @@ footer{
     <div class="timeline-intro reveal">
       <div class="section-kicker">Process</div>
       <h2>Estimated<br><em>project timeline</em></h2>
-      <p>A typical full organizational website build — from kickoff to launch — takes 8–12 weeks depending on scope and content availability. Maintenance begins immediately after launch.</p>
+      <p>A full organizational website build takes 8–12 weeks depending on scope and content availability. Maintenance begins immediately after launch.</p>
     </div>
     <div class="timeline-steps reveal">
-      <div class="tstep">
-        <div class="tstep-week">Week 1–2</div>
-        <div class="tstep-title">Discovery & Architecture</div>
-        <p class="tstep-desc">Requirements gathering, site audit (if existing), tech stack confirmation, sitemap, and project plan. Review of fbcglenarden.org structure and desired functionality.</p>
-      </div>
-      <div class="tstep">
-        <div class="tstep-week">Week 3–4</div>
-        <div class="tstep-title">Design & WordPress Setup</div>
-        <p class="tstep-desc">WordPress installation, custom theme development, responsive layout, typography, and color system. Mobile-first design reviewed and approved before build continues.</p>
-      </div>
-      <div class="tstep">
-        <div class="tstep-week">Week 5–7</div>
-        <div class="tstep-title">Core Feature Development</div>
-        <p class="tstep-desc">Blog/CMS setup, Events Calendar with registration, Member Portal with role-based access, and Secure Online Giving integration (Stripe/PayPal/Pushpay).</p>
-      </div>
-      <div class="tstep">
-        <div class="tstep-week">Week 8–9</div>
-        <div class="tstep-title">Integrations & Content Migration</div>
-        <p class="tstep-desc">Third-party platform connections (Mailchimp, Planning Center, streaming, social feeds), content migration from existing site, and media library setup.</p>
-      </div>
-      <div class="tstep">
-        <div class="tstep-week">Week 10–11</div>
-        <div class="tstep-title">Testing & Optimization</div>
-        <p class="tstep-desc">Cross-browser and mobile testing, performance optimization, security hardening (SSL, OWASP), payment flow testing, and admin/staff training sessions.</p>
-      </div>
-      <div class="tstep">
-        <div class="tstep-week">Week 12+</div>
-        <div class="tstep-title">Launch & Ongoing Maintenance</div>
-        <p class="tstep-desc">Site launch, DNS transition, monitoring setup, daily backups configured. Ongoing maintenance contract begins — regular updates, support, and continuous improvement.</p>
-      </div>
+      <div class="tstep"><div class="tstep-week">Week 1–2</div><div class="tstep-title">Discovery & Architecture</div><p class="tstep-desc">Requirements gathering, site audit, tech stack confirmation, sitemap, and project plan. Review of target site structure and desired functionality.</p></div>
+      <div class="tstep"><div class="tstep-week">Week 3–4</div><div class="tstep-title">Design & WordPress Setup</div><p class="tstep-desc">WordPress installation, custom theme development, responsive layout, typography, and color system. Mobile-first design reviewed and approved before continuing.</p></div>
+      <div class="tstep"><div class="tstep-week">Week 5–7</div><div class="tstep-title">Core Feature Development</div><p class="tstep-desc">Blog/CMS setup, Events Calendar with registration, Member Portal with role-based access, and Secure Online Giving integration (Stripe/PayPal/Pushpay).</p></div>
+      <div class="tstep"><div class="tstep-week">Week 8–9</div><div class="tstep-title">Integrations & Content Migration</div><p class="tstep-desc">Third-party connections (Mailchimp, Planning Center, streaming, social feeds), content migration from existing site, and media library setup.</p></div>
+      <div class="tstep"><div class="tstep-week">Week 10–11</div><div class="tstep-title">Testing & Optimization</div><p class="tstep-desc">Cross-browser and mobile testing, performance optimization, security hardening (SSL, OWASP), payment flow testing, and staff training sessions.</p></div>
+      <div class="tstep"><div class="tstep-week">Week 12+</div><div class="tstep-title">Launch & Ongoing Maintenance</div><p class="tstep-desc">Site launch, DNS transition, monitoring setup, daily backups. Ongoing maintenance contract begins — regular updates, support, and continuous improvement.</p></div>
     </div>
   </div>
 </section>
@@ -854,15 +716,9 @@ footer{
       <div class="section-kicker">Contact</div>
       <h2>Ready to start<br><em>your project?</em></h2>
       <p>Tell me about your organization and what you need. I'll review your current site (if any), understand your goals, and come back with a clear plan and estimate — no obligation.</p>
-      <a href="/cdn-cgi/l/email-protection#8aebe6e9efe6e7e5e4feefe9e3e4e5bbb2caede7ebe3e6a4e9e5e7" class="contact-detail">
-        <i class="contact-icon">✉</i> <span class="__cf_email__" data-cfemail="f7969b94929b9a98998392949e9998c6cfb7909a969e9bd994989a">[email&#160;protected]</span>
-      </a>
-      <a href="tel:+639154255858" class="contact-detail">
-        <i class="contact-icon">✆</i> +63 915-425-5858
-      </a>
-      <span class="contact-detail">
-        <i class="contact-icon">📍</i> Davao City, Philippines · Remote Worldwide
-      </span>
+      <a href="mailto:alcelmontecino18@gmail.com" class="contact-detail"><i class="ci">✉</i> alcelmontecino18@gmail.com</a>
+      <a href="tel:+639154255858" class="contact-detail"><i class="ci">✆</i> +63 915-425-5858</a>
+      <span class="contact-detail"><i class="ci">📍</i> Davao City, Philippines · Remote Worldwide</span>
     </div>
     <div class="contact-right reveal">
       <div class="form">
@@ -903,20 +759,46 @@ footer{
   <div class="footer-copy">© 2026 Alcel K. Montecino · Davao City, PH</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Scroll reveal
+<script>
+  // ── Hamburger menu ────────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  // Close menu on link click
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ── Scroll reveal ─────────────────────────────────────────
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
     });
-  }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.06, rootMargin: '0px 0px -36px 0px' });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // Nav compact
+  // ── Nav compact on scroll ─────────────────────────────────
   window.addEventListener('scroll', () => {
-    document.getElementById('nav').style.padding =
-      window.scrollY > 60 ? '.8rem 4rem' : '1.2rem 4rem';
+    const p = window.scrollY > 60 ? '.75rem 4rem' : '1.1rem 4rem';
+    document.getElementById('nav').style.padding = p;
   });
 
-  // Submit button
-  document.getElementById('sendBtn'
+  // ── Send button ───────────────────────────────────────────
+  document.getElementById('sendBtn').addEventListener('click', function () {
+    this.textContent = 'Message Sent ✓';
+    this.style.background = 'var(--teal2)';
+    setTimeout(() => { this.textContent = 'Send Message'; this.style.background = ''; }, 3000);
+  });
+</script>
+</body>
+</html>
